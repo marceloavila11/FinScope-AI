@@ -1,0 +1,97 @@
+# =========================
+# 🧠 GLOBAL
+# =========================
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.swp
+*.swo
+*.bak
+*.orig
+.env
+.env.local
+.env.*.local
+
+# =========================
+# 🐍 BACKEND (FastAPI / Python)
+# =========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.sqlite3
+*.db
+.venv/
+venv/
+.env/
+*.egg-info/
+dist/
+build/
+pip-wheel-metadata/
+.mypy_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# =========================
+# ⚛️ FRONTEND (React + Vite + TypeScript)
+# =========================
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/.parcel-cache/
+frontend/.eslintcache
+frontend/yarn-error.log
+frontend/package-lock.json
+frontend/.env
+frontend/.env.local
+frontend/.env.*.local
+
+# =========================
+# 🐳 DOCKER / DEPLOY
+# =========================
+docker-compose.override.yml
+.docker/
+*.pid
+logs/
+tmp/
+
+# =========================
+# 🧪 TESTS / TEMP / CACHE
+# =========================
+coverage/
+__tests__/
+.cache/
+.tmp/
+pytestdebug.log
+
+# =========================
+# 📦 SYSTEM FILES
+# =========================
+.idea/
+.vscode/
+*.iml
+*.sublime-project
+*.sublime-workspace
+
+# =========================
+# 🧰 AWS / DEPLOYMENT
+# =========================
+.aws/
+*.pem
+*.key
+*.crt
+*.cer
+*.p12
+
+# =========================
+# 🧩 MISC
+# =========================
+*.tgz
+*.tar.gz
+*.zip
+*.7z
+*.bak
+*.orig
+*.rej

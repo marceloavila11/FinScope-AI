@@ -1,111 +1,131 @@
-# 🧠 FinScope AI – Backend
+# 💼 FinScope AI
 
-**FinScope AI** es una plataforma inteligente para la gestión, análisis y predicción de datos financieros personales. Este repositorio contiene el backend desarrollado con **FastAPI** y MongoDB como base de datos NoSQL.
+**FinScope AI** es una plataforma de análisis financiero inteligente desarrollada con **React + TypeScript + Vite** en el frontend y **FastAPI + Python** en el backend.  
+Combina analítica de datos, IA generativa y visualizaciones dinámicas para ofrecer una visión integral de las finanzas personales o empresariales.
 
 ---
 
 ## 🚀 Características principales
 
-- 📤 **Carga de datos financieros** por usuario (ingresos, gastos, ahorro, categoría, descripción).
-- 📈 **Consulta de historial financiero** por correo de usuario.
-- 🔐 Autenticación JWT (en proceso).
-- 🌐 API documentada con Swagger UI.
-- 💾 Base de datos MongoDB flexible y escalable.
-- 🔧 Preparado para integración con frontend (Vite + React) y despliegue en la nube.
+### 🔹 Panel Financiero Inteligente
+- Visualiza ingresos, gastos y ahorros acumulados con **gráficos interactivos y KPIs dinámicos**.  
+- Histórico filtrable y actualizable en tiempo real.  
+- Gestión de registros financieros con modal inteligente (agregar, eliminar y filtrar).
+
+### 🤖 Asistente IA Integrado
+- Chat financiero con modelo de lenguaje conectado al backend.  
+- Capacidad para generar **resúmenes automáticos de tendencias y predicciones**.  
+- Respuestas contextuales basadas en datos del usuario (IA generativa vía API interna).  
+- Comportamiento tipo “Messenger” con animaciones suaves (minimizar/maximizar).
+
+### 📊 Visualización de Tendencias
+- Gráfico mensual comparativo de ingresos, gastos y ahorros.  
+- Transiciones suaves y adaptativas mediante **Framer Motion**.
+
+### 🧠 Backend Inteligente
+- Implementado en **FastAPI**, con endpoints para:
+  - Subir registros financieros (`/financial/upload`)
+  - Consultar histórico (`/financial/history`)
+  - Eliminar registros (`/financial/delete/:id`)
+  - Generar resúmenes IA (`/financial/summary`)
+- Base de datos en **MongoDB**.
+- Validaciones robustas y tests automáticos con `pytest`.
+
+### 🧩 Arquitectura Modular
+- `routes/financial_data.py` → Endpoints financieros  
+- `services/financial_service.py` → Lógica de negocio  
+- `models/financial.py` → Modelos Pydantic  
+- `frontend/src/context/FinancialContext.tsx` → Contexto global React  
+- `frontend/src/components/*` → UI modular (charts, tablas, modales, IA panel)
 
 ---
 
-## 🗂️ Estructura del backend
+## 🖥️ Frontend
 
-```
+**Stack:**
+- React + TypeScript + Vite  
+- TailwindCSS (con componentes responsivos y animaciones)  
+- Framer Motion  
+- Axios (servicios API)  
 
-backend/
-│
-├── app/
-│   ├── models/              # Esquemas Pydantic
-│   ├── routes/              # Endpoints organizados por módulo
-│   ├── services/            # Lógica de negocio
-│   ├── utils/               # Conexión a base de datos, helpers
-│   └── config.py            # Variables de entorno
-│
-├── main.py                  # Punto de entrada FastAPI
-├── .env                     # Configuraciones sensibles (NO subir)
-├── requirements.txt         # Dependencias
-└── README.md                # Este archivo
+**Diseño:**
+- Dashboard responsive (totalmente adaptable a escritorio, tablet y móvil)  
+- Navbar dinámico con expansión lateral  
+- Layout con animaciones suaves y transiciones por secciones  
+- Temas sobrios, con enfoque profesional tipo enterprise  
 
-````
-
----
-
-## 🛠️ Requisitos
-
-- Python 3.11+
-- MongoDB (local o Atlas)
-- Virtualenv recomendado
+**Componentes Clave:**
+- `AIChatPanel.tsx` → Chat con IA y memoria local  
+- `AIInsights.tsx` → Panel de análisis con módulos IA  
+- `Dashboard.tsx` → Vista principal con KPIs y gráficos  
+- `Login.tsx` → Pantalla moderna con diseño corporativo y responsive  
 
 ---
 
-## ⚙️ Instalación local
+## 🧰 Tecnologías utilizadas
 
+| Tipo | Tecnologías |
+|------|--------------|
+| **Frontend** | React, TypeScript, Vite, TailwindCSS, Framer Motion |
+| **Backend** | FastAPI, Python, Pydantic, Pytest |
+| **Base de Datos** | MongoDB |
+| **Infraestructura** | Docker (backend + frontend), AWS EC2/S3 (planificado) |
+| **IA / ML** | Integración con servicios externos de análisis y resúmenes IA |
+
+---
+
+## ⚙️ Instalación y ejecución
+
+### 🔸 Backend
 ```bash
-# 1. Clonar el repo
-git clone https://github.com/tuusuario/finscope-backend.git
-cd finscope-backend
-
-# 2. Crear entorno virtual
+cd backend
 python -m venv .venv
-source .venv/bin/activate     # Linux/macOS
-.venv\Scripts\activate        # Windows
-
-# 3. Instalar dependencias
+source .venv/bin/activate   # o .venv\Scripts\activate en Windows
 pip install -r requirements.txt
-
-# 4. Crear archivo .env
-touch .env
+uvicorn main:app --reload
 ````
 
-Ejemplo `.env`:
-
-```
-APP_NAME=FinScope AI Backend
-APP_VERSION=1.0
-MONGO_URI=mongodb://localhost:27017
-ALLOWED_ORIGINS=http://localhost:5173
-JWT_SECRET=tu_clave_secreta
-```
-
----
-
-## ▶️ Ejecutar
+### 🔸 Frontend
 
 ```bash
-uvicorn app.main:app --reload
-```
-
-Accede a la documentación Swagger:
-
-```
-http://localhost:8000/docs
+cd frontend
+npm install
+npm run dev
 ```
 
 ---
 
-## 🔮 Próximamente
+## 🧪 Tests
 
-* 📊 Módulo de análisis inteligente del historial
-* 🌍 Despliegue con Docker + AWS ECS/Fargate
-* 🔐 Roles de usuario y dashboards personalizados
-* ☁️ Integración CI/CD
+Ejecutar pruebas del backend:
 
----
-
-## 🧑‍💻 Autor
-
-**Marcelo Ávila**
-[LinkedIn](https://www.linkedin.com/) – *Ecuador*
+```bash
+pytest -v
+```
 
 ---
 
-## 📄 Licencia
+## 🧠 Próximas mejoras
 
-MIT License – libre para uso educativo y profesional.
+* Panel de predicción avanzada con IA (forecast financiero).
+* Sistema de alertas automáticas (gastos excesivos o ahorro insuficiente).
+* Dashboard global multiusuario con autenticación JWT.
+* Despliegue completo en AWS (EC2, S3, RDS y CI/CD).
+
+---
+
+## 👨‍💻 Autor
+
+**Marcelo Avila** |
+Ingeniero en Ciencias de la Computación |
+Banco del Austro | Universidad de Cuenca |
+[GitHub](https://github.com/marceloavila11)
+
+---
+
+## 🏷️ Licencia
+
+Este proyecto se distribuye bajo licencia **MIT**.
+© 2025 FinScope AI — Análisis Financiero Inteligente
+
+```

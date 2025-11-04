@@ -85,13 +85,11 @@ def ai_forecast(
 ):
     user_email = user["email"]
 
-    # 1️⃣ Buscar cache
     cached = ai_cache_collection.find_one(
         {"user_email": user_email, "type": "forecast"})
     if cached and "response" in cached:
         return cached["response"]
 
-    # 2️⃣ Generar pronóstico
     rows = list(financial_collection.find(
         {"user_email": user_email}, {"_id": 0}).sort("record_date", 1))
     if not rows:
@@ -111,7 +109,6 @@ def ai_forecast(
             "risk_level": narrative.get("risk_level", "unknown"),
         })
 
-    # 3️⃣ Guardar cache
     ai_cache_collection.update_one(
         {"user_email": user_email, "type": "forecast"},
         {
@@ -232,7 +229,6 @@ def ai_risk_summary(user=Depends(get_current_user)):
     if not rows:
         raise HTTPException(status_code=404, detail="No hay registros")
 
-    # Filtrar registros válidos que contengan income y savings
     valid_rows = [
         r for r in rows if "income" in r and "savings" in r and r["income"] > 0]
 
@@ -241,8 +237,7 @@ def ai_risk_summary(user=Depends(get_current_user)):
             status_code=400,
             detail="No hay registros válidos con ingresos y ahorros para calcular el riesgo."
         )
-
-    # Calcular métricas solo con los registros válidos
+    
     avg_save_ratio = sum(r["savings"] / r["income"]
                          for r in valid_rows) / len(valid_rows)
     volatility = np.std([r["savings"] for r in valid_rows])
