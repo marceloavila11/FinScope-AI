@@ -1,80 +1,84 @@
 # 💼 FinScope AI
 
-**FinScope AI** es una plataforma de análisis financiero inteligente desarrollada con **React + TypeScript + Vite** en el frontend y **FastAPI + Python** en el backend.  
-Combina analítica de datos, IA generativa y visualizaciones dinámicas para ofrecer una visión integral de las finanzas personales o empresariales.
+> **Plataforma de análisis financiero inteligente** que combina visualización avanzada, IA generativa y análisis de tendencias.  
+Desarrollada con **React + TypeScript + Vite** en el frontend y **FastAPI + Python** en el backend, desplegada en **AWS (S3 + EC2 + CloudFront)** con integración CI/CD mediante GitHub Actions.
+
+---
+
+## 🌐 Enlaces
+
+🔹 **Repositorio:** [github.com/marceloavila11/FinScope-AI](https://github.com/marceloavila11/FinScope-AI)  
+🔹 **Frontend en AWS:** _(CloudFront URL)_  
+🔹 **API Backend:** _(EC2 IP:8000/docs)_
 
 ---
 
 ## 🚀 Características principales
 
-### 🔹 Panel Financiero Inteligente
-- Visualiza ingresos, gastos y ahorros acumulados con **gráficos interactivos y KPIs dinámicos**.  
-- Histórico filtrable y actualizable en tiempo real.  
-- Gestión de registros financieros con modal inteligente (agregar, eliminar y filtrar).
+### 🧭 Panel Financiero Inteligente
+- Seguimiento de ingresos, gastos y ahorros con **gráficos interactivos**.  
+- Filtros dinámicos por rango de fechas y categorías.  
+- Modales para **crear, editar y eliminar** registros financieros.  
+- KPIs adaptativos y visualización histórica.
 
-### 🤖 Asistente IA Integrado
-- Chat financiero con modelo de lenguaje conectado al backend.  
-- Capacidad para generar **resúmenes automáticos de tendencias y predicciones**.  
-- Respuestas contextuales basadas en datos del usuario (IA generativa vía API interna).  
-- Comportamiento tipo “Messenger” con animaciones suaves (minimizar/maximizar).
+### 🤖 Asistente de IA Integrado
+- Chat con IA financiera conectada al backend (API generativa).  
+- Resúmenes automáticos de tendencias, ahorro y predicciones.  
+- Diseño estilo **Messenger** con animaciones suaves y modo compacto.
 
-### 📊 Visualización de Tendencias
-- Gráfico mensual comparativo de ingresos, gastos y ahorros.  
-- Transiciones suaves y adaptativas mediante **Framer Motion**.
-
-### 🧠 Backend Inteligente
-- Implementado en **FastAPI**, con endpoints para:
-  - Subir registros financieros (`/financial/upload`)
-  - Consultar histórico (`/financial/history`)
-  - Eliminar registros (`/financial/delete/:id`)
-  - Generar resúmenes IA (`/financial/summary`)
-- Base de datos en **MongoDB**.
-- Validaciones robustas y tests automáticos con `pytest`.
-
-### 🧩 Arquitectura Modular
-- `routes/financial_data.py` → Endpoints financieros  
-- `services/financial_service.py` → Lógica de negocio  
-- `models/financial.py` → Modelos Pydantic  
-- `frontend/src/context/FinancialContext.tsx` → Contexto global React  
-- `frontend/src/components/*` → UI modular (charts, tablas, modales, IA panel)
+### 📈 Visualizaciones Dinámicas
+- Gráficos comparativos por mes y categoría.  
+- Interfaz responsive, moderna y orientada a productividad.
 
 ---
 
-## 🖥️ Frontend
+## 🧠 Arquitectura del Proyecto
 
-**Stack:**
-- React + TypeScript + Vite  
-- TailwindCSS (con componentes responsivos y animaciones)  
-- Framer Motion  
-- Axios (servicios API)  
+```
 
-**Diseño:**
-- Dashboard responsive (totalmente adaptable a escritorio, tablet y móvil)  
-- Navbar dinámico con expansión lateral  
-- Layout con animaciones suaves y transiciones por secciones  
-- Temas sobrios, con enfoque profesional tipo enterprise  
+📦 FinScope-AI
+├── backend/
+│   ├── app/
+│   │   ├── main.py
+│   │   ├── routes/
+│   │   │   ├── auth.py
+│   │   │   ├── financial_data.py
+│   │   │   └── ai_assistant.py
+│   │   ├── services/
+│   │   │   └── financial_service.py
+│   │   ├── models/
+│   │   │   └── financial.py
+│   │   └── config.py
+│   └── tests/
+│       └── test_financial.py
+│
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── context/
+│   │   └── services/
+│   └── vite.config.ts
+│
+└── docker-compose.yml
 
-**Componentes Clave:**
-- `AIChatPanel.tsx` → Chat con IA y memoria local  
-- `AIInsights.tsx` → Panel de análisis con módulos IA  
-- `Dashboard.tsx` → Vista principal con KPIs y gráficos  
-- `Login.tsx` → Pantalla moderna con diseño corporativo y responsive  
+````
 
 ---
 
-## 🧰 Tecnologías utilizadas
+## 🧩 Stack Tecnológico
 
-| Tipo | Tecnologías |
+| Capa | Tecnologías |
 |------|--------------|
 | **Frontend** | React, TypeScript, Vite, TailwindCSS, Framer Motion |
 | **Backend** | FastAPI, Python, Pydantic, Pytest |
-| **Base de Datos** | MongoDB |
-| **Infraestructura** | Docker (backend + frontend), AWS EC2/S3 (planificado) |
-| **IA / ML** | Integración con servicios externos de análisis y resúmenes IA |
+| **Base de datos** | MongoDB (Atlas) |
+| **Infraestructura** | Docker, AWS EC2 (backend), S3 + CloudFront (frontend), GitHub Actions |
+| **IA / ML** | OpenAI API (resúmenes y predicciones) |
 
 ---
 
-## ⚙️ Instalación y ejecución
+## ⚙️ Instalación Local
 
 ### 🔸 Backend
 ```bash
@@ -82,7 +86,7 @@ cd backend
 python -m venv .venv
 source .venv/bin/activate   # o .venv\Scripts\activate en Windows
 pip install -r requirements.txt
-uvicorn main:app --reload
+uvicorn app.main:app --reload
 ````
 
 ### 🔸 Frontend
@@ -95,35 +99,57 @@ npm run dev
 
 ---
 
-## 🧪 Tests
+## 🧰 Dockerización
 
-Ejecutar pruebas del backend:
+```bash
+docker-compose build
+docker-compose up -d
+```
+
+Esto lanza:
+
+* `finscope-backend` → FastAPI en puerto 8000
+* `finscope-frontend` → React (Nginx) en puerto 5173
+
+---
+
+## 🧪 Pruebas
 
 ```bash
 pytest -v
 ```
 
----
-
-## 🧠 Próximas mejoras
-
-* Panel de predicción avanzada con IA (forecast financiero).
-* Sistema de alertas automáticas (gastos excesivos o ahorro insuficiente).
-* Dashboard global multiusuario con autenticación JWT.
-* Despliegue completo en AWS (EC2, S3, RDS y CI/CD).
+Pruebas automáticas para endpoints `/financial/upload` y `/financial/history`.
 
 ---
 
-## 👨‍💻 Autor
+## ☁️ Despliegue en AWS
 
-**Marcelo Avila** |
-Ingeniero en Ciencias de la Computación |
-Banco del Austro | Universidad de Cuenca |
-[GitHub](https://github.com/marceloavila11)
+* **Frontend:**
+
+  * S3 (hosting estático) + CloudFront (CDN + HTTPS)
+  * Deploy automatizado con GitHub Actions → `main` branch
+
+* **Backend:**
+
+  * EC2 con Ubuntu + Docker + Nginx (proxy reverso)
+  * Base de datos en MongoDB Atlas (cloud)
+  * Acceso mediante `http://<EC2-IP>:8000/docs`
+
+---
+
+## 🧾 Créditos
+
+👤 **Marcelo Avila**
+*Ingeniero en Ciencias de la Computación — Banco del Austro*
+📍 *Cuenca, Ecuador*
+🌐 [GitHub](https://github.com/marceloavila11)
 
 ---
 
 ## 🏷️ Licencia
 
-Este proyecto se distribuye bajo licencia **MIT**.
-© 2025 FinScope AI — Análisis Financiero Inteligente
+Proyecto distribuido bajo licencia **MIT**.
+© 2025 **FinScope AI** — *Análisis Financiero Inteligente*.
+
+
