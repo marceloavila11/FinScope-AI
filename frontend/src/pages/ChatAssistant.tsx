@@ -1,49 +1,48 @@
-import { useState } from "react";
-import { api } from "../services/api";
-import { motion } from "framer-motion";
+import { useState } from "react"
+import { api } from "../services/api"
+import { motion } from "framer-motion"
 
 interface Message {
-  role: "user" | "assistant";
-  text: string;
+  role: "user" | "assistant"
+  text: string
 }
 
 export default function ChatAssistant() {
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([])
+  const [input, setInput] = useState("")
+  const [loading, setLoading] = useState(false)
 
   const sendMessage = async () => {
-    if (!input.trim()) return;
-
-    const newMsg = { role: "user", text: input };
-    setMessages([...messages, newMsg]);
-    setInput("");
-    setLoading(true);
+    if (!input.trim()) return
+    
+    setMessages((prev) => [...prev, { role: "user" as const, text: input }])
+    setInput("")
+    setLoading(true)
 
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem("token")
       const res = await api.post(
         "/ai/assistant",
         { message: input },
         { headers: { Authorization: `Bearer ${token}` } }
-      );
+      )
 
       const reply =
         res.data.answer ||
         res.data.text ||
-        "No se pudo obtener una respuesta del asistente.";
-
-      setMessages((prev) => [...prev, { role: "assistant", text: reply }]);
+        "No se pudo obtener una respuesta del asistente."
+      
+      setMessages((prev) => [...prev, { role: "assistant" as const, text: reply }])
     } catch (err) {
-      console.error(err);
+      console.error(err)
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", text: "Error al conectar con FinScope AI." },
-      ]);
+        { role: "assistant" as const, text: "Error al conectar con FinScope AI." },
+      ])
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   return (
     <div className="flex flex-col h-[80vh] w-full max-w-3xl mx-auto bg-white rounded-lg shadow-lg border border-gray-200">
@@ -64,7 +63,7 @@ export default function ChatAssistant() {
         ))}
         {loading && (
           <div className="text-center text-gray-500 animate-pulse">
-            FinScope AI está analizando tus finanzas...
+            FinScope AI está analizando...
           </div>
         )}
       </div>
@@ -87,5 +86,5 @@ export default function ChatAssistant() {
         </button>
       </div>
     </div>
-  );
+  )
 }

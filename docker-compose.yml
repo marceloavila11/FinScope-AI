@@ -1,0 +1,25 @@
+version: '3.9'
+services:
+  backend:
+    build: ./backend
+    container_name: finscope-backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    networks:
+      - finscope-net
+
+  frontend:
+    build: ./frontend
+    container_name: finscope-frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+    networks:
+      - finscope-net
+
+networks:
+  finscope-net:
+    driver: bridge
