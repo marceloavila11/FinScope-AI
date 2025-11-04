@@ -2,7 +2,8 @@ import axios from "axios"
 import { isTokenValid } from "../utils/auth"
 
 export const api = axios.create({
-  baseURL: "http://localhost:8000",
+  baseURL: "http://52.14.211.120:8000",
+  // baseURL: "http://localhost:8000",
 })
 
 api.interceptors.request.use((config) => {
