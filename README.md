@@ -127,5 +127,3 @@ Banco del Austro | Universidad de Cuenca |
 
 Este proyecto se distribuye bajo licencia **MIT**.
 © 2025 FinScope AI — Análisis Financiero Inteligente
-
-```
