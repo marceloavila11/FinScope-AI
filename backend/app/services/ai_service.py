@@ -34,9 +34,6 @@ SYSTEM_FINANCE_HINT = (
 )
 
 
-# ================================
-# 🔧 FUNCIONES DE APOYO
-# ================================
 def _strip_code_fences(text: str) -> str:
     if not text:
         return text
@@ -56,9 +53,6 @@ def _safe_json(text: str) -> Optional[Dict[str, Any]]:
         return None
 
 
-# ================================
-# 🧠 NÚCLEO DE LLAMADA GEMINI
-# ================================
 def call_gemini_structured(
     prompt: str,
     models: Optional[List[str]] = None,
@@ -115,9 +109,6 @@ def call_gemini_structured(
     return {"ok": False, "model": None, "data": None, "text": None, "error": f"Fallo final: {last_error}"}
 
 
-# ================================
-# 📊 CONTEXTO FINANCIERO
-# ================================
 def build_user_context_summary(financial_rows: List[Dict[str, Any]]) -> str:
     if not financial_rows:
         return "El usuario no tiene registros financieros cargados."
@@ -132,11 +123,6 @@ def build_user_context_summary(financial_rows: List[Dict[str, Any]]) -> str:
         f"ahorros {total_save} ({ahorro_pct}% de ahorro). "
         "Usa esta información para generar recomendaciones personalizadas."
     )
-
-# ================================
-# 💬 INTERFAZ PRINCIPAL
-# ================================
-
 
 def ask_financial_assistant(question: str, user_context: dict):
     try:
@@ -158,7 +144,6 @@ def ask_financial_assistant(question: str, user_context: dict):
         }}
         """
 
-        # 🚀 Compatible con la versión estable de google-generativeai (v0.5.x)
         model = genai.GenerativeModel("gemini-2.5-pro")
         response = model.generate_content(
             prompt,
@@ -171,12 +156,6 @@ def ask_financial_assistant(question: str, user_context: dict):
     except Exception as e:
         print("Error consultando al asistente:", e)
         return {"ok": False, "error": str(e)}
-
-
-# ================================
-# 📈 PREDICCIÓN DE AHORRO FUTURO
-# ================================
-
 
 def predict_savings_trend(records: list[dict]) -> dict:
     if not records or len(records) < 2:
@@ -244,10 +223,6 @@ Devuelve el texto en formato conciso, no académico.
         "risk_level": "unknown",
     }
 
-# ================================
-# 💾 CACHE DE RESPUESTAS IA
-# ================================
-
 
 def get_cached_ai_response(user_email: str, cache_type: str, max_age_hours: int = 24):
     cutoff = datetime.utcnow() - timedelta(hours=max_age_hours)
@@ -292,16 +267,10 @@ Usa tono profesional, realista, y resume en máximo 5 frases.
 
     return {"source": "gemini", "summary": summary_text}
 
-# ================================
-# 🔮 ENDPOINTS IA COMPLEMENTARIOS
-# ================================
-
-
 def generate_ai_forecast(user_email: str, financial_rows: list[dict[str, any]]):
     """
     Genera un pronóstico de ahorro usando regresión lineal + Gemini.
     """
-    # Intenta cachear como los demás
     cached = get_cached_ai_response(user_email, "forecast")
     if cached:
         return {"source": "cache", **cached}

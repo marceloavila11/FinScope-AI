@@ -30,7 +30,6 @@ def insert_financial_record(record: FinancialRecord):
 
     record_dict.pop("date", None)
 
-    # --- Evitar duplicados ---
     existing = financial_collection.find_one({
         "user_email": record.user_email,
         "record_date": record_dict["record_date"]
@@ -42,10 +41,8 @@ def insert_financial_record(record: FinancialRecord):
             detail=f"Ya existe un registro para el usuario '{record.user_email}' en la fecha {record_dict['record_date'].date()}."
         )
 
-    # --- Inserción ---
     result = financial_collection.insert_one(record_dict)
 
-    # --- Invalidar cache IA ---
     try:
         invalidate_ai_cache_for_user(record.user_email)
     except Exception as e:

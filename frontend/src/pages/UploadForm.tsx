@@ -13,7 +13,6 @@ export default function UploadForm({ onSuccess }: { onSuccess?: () => void }) {
     savings: 0,
     category: "",
     description: "",
-    // ahora almacena el mes actual (YYYY-MM)
     date: new Date().toISOString().slice(0, 7),
   });
 
@@ -21,7 +20,6 @@ export default function UploadForm({ onSuccess }: { onSuccess?: () => void }) {
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
-  // === Cálculo lógico dinámico ===
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     const numValue =
@@ -52,7 +50,6 @@ export default function UploadForm({ onSuccess }: { onSuccess?: () => void }) {
     });
   };
 
-  // === Validaciones ===
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
     const { income, expenses, savings, category } = form;
@@ -68,7 +65,6 @@ export default function UploadForm({ onSuccess }: { onSuccess?: () => void }) {
     return Object.keys(newErrors).length === 0;
   };
 
-  // === Submit ===
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
@@ -76,7 +72,6 @@ export default function UploadForm({ onSuccess }: { onSuccess?: () => void }) {
     setLoading(true);
     setToast(null);
     try {
-      // convertimos el mes YYYY-MM a una fecha real YYYY-MM-01
       const fullDate = `${form.date}-01`;
 
       await api.post("/financial/upload", { ...form, user_email: userEmail, date: fullDate });
@@ -116,7 +111,7 @@ export default function UploadForm({ onSuccess }: { onSuccess?: () => void }) {
           { label: "Ingresos", name: "income", value: form.income, type: "number" },
           { label: "Gastos", name: "expenses", value: form.expenses, type: "number" },
           { label: "Ahorros", name: "savings", value: form.savings, type: "number" },
-          { label: "Mes", name: "date", value: form.date, type: "month" }, // <-- aquí el cambio
+          { label: "Mes", name: "date", value: form.date, type: "month" },
         ].map((f) => (
           <div key={f.name}>
             <label className="block text-sm font-medium text-gray-700 mb-1">{f.label}</label>

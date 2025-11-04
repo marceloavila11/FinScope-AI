@@ -6,7 +6,6 @@ from app.config import settings
 client = MongoClient(settings.mongo_uri)
 db = client["finscope"]
 
-# Colecciones explícitas
 user_collection = db["users"]
 financial_collection = db["financial_data"]
 ai_cache_collection = db["ai_cache"]  

@@ -1,6 +1,5 @@
 import { api } from "../services/api"
 
-// === IA: Resumen general ===
 export async function getAISummary() {
   const token = localStorage.getItem("token")
 
@@ -23,7 +22,6 @@ export async function getAISummary() {
   }
 }
 
-// === IA: Asistente financiero (con contexto robusto) ===
 export async function askFinancialAssistant(message: string, context?: any) {
   const token = localStorage.getItem("token")
   if (!token) {
@@ -31,7 +29,6 @@ export async function askFinancialAssistant(message: string, context?: any) {
     throw new Error("No autenticado")
   }
 
-  // 🔧 Asegura que context sea JSON serializable y válido
   const safeContext =
     typeof context === "string"
       ? JSON.parse(context)
@@ -54,7 +51,6 @@ export async function askFinancialAssistant(message: string, context?: any) {
 }
 
 
-// === IA: Predicción financiera ===
 export async function getAIForecast() {
   const token = localStorage.getItem("token")
   if (!token) {
@@ -73,7 +69,6 @@ export async function getAIForecast() {
   }
 }
 
-// === IA: Escenario hipotético ===
 export async function simulateAIScenario(payload: any) {
   const token = localStorage.getItem("token")
 
