@@ -8,8 +8,6 @@ Desarrollada con **React + TypeScript + Vite** en el frontend y **FastAPI + Pyth
 ## 🌐 Enlaces
 
 🔹 **Repositorio:** [github.com/marceloavila11/FinScope-AI](https://github.com/marceloavila11/FinScope-AI)  
-🔹 **Frontend en AWS:** [frontend](https://d2g7qu2e9w9xbv.cloudfront.net/login)  
-🔹 **API Backend:** _(EC2 IP:8000/docs)_
 
 ---
 
